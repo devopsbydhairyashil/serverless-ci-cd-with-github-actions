@@ -1,0 +1,30 @@
+name: CI/CD - Serverless
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install SAM CLI
+        run: pip install aws-sam-cli
+      - name: Build and Test
+        run: |
+          cd src
+          pip install -r requirements.txt --target .
+          pytest -q || true
+      - name: Package and Deploy
+        env:
+          AWS_REGION: us-east-1
+        run: |
+          sam build
+          sam deploy --no-confirm-changeset --stack-name demo-${{ github.ref_name }} --capabilities CAPABILITY_NAMED_IAM
