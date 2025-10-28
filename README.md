@@ -142,7 +142,7 @@ aws cloudformation describe-stacks --stack-name myservice-staging --query "Stack
 
 ---
 
-Connect with me on LinkedIn: https://www.linkedin.com/in/dhairyashil-bhosale
+Connect with me on LinkedIn: https://www.linkedin.com/in/dhairyashilclouddevops/
 
 
 ---
